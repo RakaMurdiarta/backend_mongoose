@@ -66,7 +66,7 @@ exports.login = (req, res, next) => {
         },
         "fsfskfjfdfdfdf",
         {
-          expiresIn: "10s",
+          expiresIn: "1s",
         }
       );
 
@@ -77,7 +77,7 @@ exports.login = (req, res, next) => {
         },
         "refreshtoken",
         {
-          expiresIn: "30s",
+          expiresIn: "2m",
         }
       );
 

@@ -5,7 +5,7 @@ exports.handleRefreshToken = (req, res) => {
 
   if (!cookies?.refreshToken) {
     const error = new Error("No Authenticated");
-    error.statusCode = 401;
+    error.statusCode = 403;
     throw error;
   }
 
@@ -34,7 +34,7 @@ exports.handleRefreshToken = (req, res) => {
     },
     "fsfskfjfdfdfdf",
     {
-      expiresIn: "30s",
+      expiresIn: "1s",
     }
   );
 
