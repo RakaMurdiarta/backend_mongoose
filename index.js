@@ -69,6 +69,11 @@ app.use("/admin", UserRouter);
 app.use("/admin", cartRouter);
 app.use("/auth", AuthRouter);
 
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page Not Found</h1>");
+  next();
+});
+
 app.use((error, req, res, next) => {
   console.log(error.statusCode);
   const status = error.statusCode || 500;
@@ -78,9 +83,4 @@ app.use((error, req, res, next) => {
 
 app.listen(8000, () => {
   console.log(connectToDatabase);
-});
-
-app.use((req, res, next) => {
-  res.status(404).send("<h1>Page Not Found</h1>");
-  next();
 });

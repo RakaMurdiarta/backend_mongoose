@@ -50,7 +50,9 @@ exports.deleteUser = (req, res) => {
     if (deletedCount === 0) {
       res.status(401).json({ msg: "User Tidak Ada" });
     } else {
-      res.status(200).json({ msg: "Data Berhasil Dihapus" });
+      usersModel.find().then((user) => {
+        res.json({ data: user });
+      });
     }
   });
 };

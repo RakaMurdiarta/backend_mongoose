@@ -84,8 +84,8 @@ exports.deleteProduct = (req, res) => {
   const { productId } = req.params;
   ProductModel.deleteOne({ _id: productId })
     .then((result) => {
-      res.status(200).json({
-        msg: result,
+      ProductModel.find().then((products) => {
+        res.status(200).json({ data: products });
       });
     })
     .catch((err) => {

@@ -34,7 +34,7 @@ router.post(
   products.addProduct
 );
 router.get("/clearcart", UserAdd.clearCart);
-router.get("/del/:productId", products.deleteProduct);
+router.get("/del/:productId", isAuth.auth, products.deleteProduct);
 router.get("/user/:userid", UserAdd.getUser);
 router.get("/refresh", refresh.handleRefreshToken);
 
