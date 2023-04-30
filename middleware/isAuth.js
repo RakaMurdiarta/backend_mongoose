@@ -4,8 +4,6 @@ const Products = require("../models/product.models.js");
 exports.auth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
 
-  console.log(req.headers);
-
   console.log(authHeader, "isAUth");
   if (!authHeader) {
     const error = new Error("Not Authenticated");

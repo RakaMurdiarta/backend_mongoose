@@ -9,7 +9,7 @@ exports.addProduct = (req, res, next) => {
   console.log(req.file);
   const imageUrl = req.file.path.replace("\\", "/");
   console.log(imageUrl, "ddd");
-  const userId = req.user;
+  const userId = req.userId;
 
   const products = new ProductModel({
     title,
@@ -96,11 +96,29 @@ exports.deleteProduct = (req, res) => {
 };
 
 exports.updateProduct = (req, res, next) => {
-  ProductModel.updateOne({ _id: id }, req.body)
+  const { id } = req.params;
+  const imageUrl = req.file?.path.replace("\\", "/");
+  const data = !req.file?.path ? { ...req.body } : { ...req.body, imageUrl };
+  ProductModel.updateOne({ _id: id }, data)
     .then((result) => {
       res.status(200).json({ msg: result });
     })
     .catch((err) => {
       res.status(401).json({ msg: err.message });
     });
+};
+
+exports.editProduct = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const response = await ProductModel.findById(id);
+    if (!response) {
+      res.sendStatus(404);
+    }
+
+    res.status(200).json({ data: response });
+  } catch (error) {
+    console.log(error);
+  }
 };

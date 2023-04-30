@@ -67,7 +67,7 @@ exports.login = (req, res, next) => {
         },
         "fsfskfjfdfdfdf",
         {
-          expiresIn: "1s",
+          expiresIn: "1h",
         }
       );
 
@@ -79,7 +79,7 @@ exports.login = (req, res, next) => {
         },
         "refreshtoken",
         {
-          expiresIn: "20s",
+          expiresIn: "1h",
         }
       );
 
@@ -92,7 +92,7 @@ exports.login = (req, res, next) => {
 
       res.status(200).json({
         token,
-        userId: loadedUser._id.toString(),
+        userId: loadedUser._id,
         email: loadedUser.email,
         user: loadedUser.name,
         refresh: refreshToken,

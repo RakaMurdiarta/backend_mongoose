@@ -55,14 +55,14 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
 
-app.use((req, res, next) => {
-  User.findById("6445284494cd8d27f5494f35")
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => console.log(err));
-});
+// app.use((req, res, next) => {
+//   User.findById("6445284494cd8d27f5494f35")
+//     .then((user) => {
+//       req.user = user;
+//       next();
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 // app.use('/admin',isAuth)
 app.use("/admin", UserRouter);

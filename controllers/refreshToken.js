@@ -40,5 +40,5 @@ exports.handleRefreshToken = (req, res) => {
     }
   );
 
-  res.json({ token, user: decodeToken.user });
+  res.json({ token, user: decodeToken.user, id: decodeToken.userId });
 };

@@ -37,5 +37,7 @@ router.get("/clearcart", UserAdd.clearCart);
 router.get("/del/:productId", isAuth.auth, products.deleteProduct);
 router.get("/user/:userid", UserAdd.getUser);
 router.get("/refresh", refresh.handleRefreshToken);
+router.get("/product/:id", isAuth.auth, products.editProduct);
+router.post("/product/:id", isAuth.auth, products.updateProduct);
 
 module.exports = router;
