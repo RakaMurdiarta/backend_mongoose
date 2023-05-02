@@ -5,7 +5,7 @@ exports.handleRefreshToken = (req, res) => {
 
   if (!cookies?.refreshToken) {
     const error = new Error("No Authenticated");
-    error.statusCode = 403;
+    error.statusCode = 401;
     throw error;
   }
 
@@ -15,15 +15,16 @@ exports.handleRefreshToken = (req, res) => {
   try {
     decodeToken = jwt.verify(refreshToken, "refreshtoken");
   } catch (error) {
-    error.statusCode = 403;
+    error.message = "Cookies Expired";
+    error.statusCode = 408;
     throw error;
   }
 
-  if (!decodeToken) {
-    const error = new Error("Not Authenticated");
-    error.StatusCode = 403;
-    throw error;
-  }
+  // if (!decodeToken) {
+  //   const error = new Error("Not Authenticated");
+  //   error.StatusCode = 403;
+  //   throw error;
+  // }
 
   console.log(decodeToken);
 
@@ -31,6 +32,7 @@ exports.handleRefreshToken = (req, res) => {
     {
       email: decodeToken.email,
       userId: decodeToken.userId,
+      user: decodeToken.user,
     },
     "fsfskfjfdfdfdf",
     {
@@ -38,5 +40,5 @@ exports.handleRefreshToken = (req, res) => {
     }
   );
 
-  res.json({ token, userId: decodeToken.userId });
+  res.json({ token, user: decodeToken.user, id: decodeToken.userId });
 };

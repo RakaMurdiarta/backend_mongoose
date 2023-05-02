@@ -63,10 +63,11 @@ exports.login = (req, res, next) => {
         {
           email: loadedUser.email,
           userId: loadedUser._id,
+          user: loadedUser.name,
         },
         "fsfskfjfdfdfdf",
         {
-          expiresIn: "1s",
+          expiresIn: "1h",
         }
       );
 
@@ -74,10 +75,11 @@ exports.login = (req, res, next) => {
         {
           email: loadedUser.email,
           userId: loadedUser._id,
+          user: loadedUser.name,
         },
         "refreshtoken",
         {
-          expiresIn: "2m",
+          expiresIn: "1h",
         }
       );
 
@@ -90,9 +92,9 @@ exports.login = (req, res, next) => {
 
       res.status(200).json({
         token,
-        userId: loadedUser._id.toString(),
+        userId: loadedUser._id,
         email: loadedUser.email,
-        name: loadedUser.name,
+        user: loadedUser.name,
         refresh: refreshToken,
       });
     })
@@ -102,4 +104,19 @@ exports.login = (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.logout = (req, res) => {
+  const cookies = req.cookies;
+
+  if (!cookies?.refreshToken) return res.sendStatus(204);
+
+  const refreshToken = cookies.refreshToken;
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    sameSite: "None",
+    secure: true,
+  });
+  res.sendStatus(204);
 };

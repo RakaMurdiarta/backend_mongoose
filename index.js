@@ -55,19 +55,24 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
 
-app.use((req, res, next) => {
-  User.findById("6445284494cd8d27f5494f35")
-    .then((user) => {
-      req.user = user;
-      next();
-    })
-    .catch((err) => console.log(err));
-});
+// app.use((req, res, next) => {
+//   User.findById("6445284494cd8d27f5494f35")
+//     .then((user) => {
+//       req.user = user;
+//       next();
+//     })
+//     .catch((err) => console.log(err));
+// });
 
 // app.use('/admin',isAuth)
 app.use("/admin", UserRouter);
 app.use("/admin", cartRouter);
 app.use("/auth", AuthRouter);
+
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page Not Found</h1>");
+  next();
+});
 
 app.use((error, req, res, next) => {
   console.log(error.statusCode);
@@ -78,9 +83,4 @@ app.use((error, req, res, next) => {
 
 app.listen(8000, () => {
   console.log(connectToDatabase);
-});
-
-app.use((req, res, next) => {
-  res.status(404).send("<h1>Page Not Found</h1>");
-  next();
 });
